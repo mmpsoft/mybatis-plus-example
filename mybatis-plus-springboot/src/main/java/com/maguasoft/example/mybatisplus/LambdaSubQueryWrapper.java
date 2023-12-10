@@ -140,7 +140,7 @@ public class LambdaSubQueryWrapper<T> extends AbstractLambdaWrapper<T, LambdaSub
         String formatWhereSql = "";
         if (StringUtils.isNotBlank(customSqlSegment)) {
             formatWhereSql = sqlArgKeys.stream().reduce(" where " + customSqlSegment, (whereSql, key) -> {
-                String replaceRegex = String.format("#{%s.paramNameValuePairs.%s}", TABLE_ALIASES, key);
+                String replaceRegex = String.format("#{ew.paramNameValuePairs.%s}", key);
                 Object originVal = getParamNameValuePairs().get(key);
                 Object warpVal = originVal instanceof String ? String.format("'%s'", originVal) : originVal;
                 return whereSql.replace(replaceRegex, Objects.toString(warpVal));
